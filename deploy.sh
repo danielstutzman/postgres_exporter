@@ -23,8 +23,14 @@ setuid postgres_exporter
 setgid postgres_exporter
 script
   DATA_SOURCE_NAME=postgresql://vocabincontext:vocabincontext@localhost/postgres \\
-    /home/postgres_exporter/postgres_exporter -web.listen-address :9113
+    /home/postgres_exporter/postgres_exporter -web.listen-address :9113 \\
+    -extend.query-path /home/postgres_exporter/queries.yaml
 end script
+EOF2
+
+sudo -u postgres_exporter tee /home/postgres_exporter/queries.yaml <<EOF2
+pg_stat_replication:
+  query: select 1 where 1 = 0
 EOF2
 
 sudo service postgres_exporter stop || true
