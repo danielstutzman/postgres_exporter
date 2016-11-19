@@ -18,7 +18,7 @@ sudo mkdir -p /home/postgres_exporter
 sudo chown postgres_exporter:postgres_exporter /home/postgres_exporter
 
 tee /etc/init/postgres_exporter.conf <<EOF2
-start on filesystem
+start on started remote_syslog
 setuid postgres_exporter
 setgid postgres_exporter
 script
